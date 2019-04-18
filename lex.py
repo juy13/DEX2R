@@ -50,7 +50,7 @@ tokens = ['ID', 'QUOTE', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
 		'EQ', 'PLUS', 'MINUS', 'TIMES', 'POWER', 'DIVIDE', 'LT',
 		'GT', 'QM', 'EX', 'AND', 'DEQ'] + list(reserved.values())
 
-t_LQUOTE = '\"'
+t_QUOTE = '\"'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_LBRACE = r'\{'
@@ -76,9 +76,9 @@ def t_ID(t):
 	 
 def t_newline(t):
 	r'\n+'
-	log('HERE')
+	#log('HERE')
 	t.lexer.lineno += len(t.value)
-	t.lexer.
+	
 	
 	 
 def t_error(t):
@@ -86,11 +86,14 @@ def t_error(t):
 
 t_ignore = ' \r\t\f'
 	
-data = "VOICE ddd \n RECORD X"
+#data = "VOICE ddd \n RECORD X"
 	
+file = open('simple_test.dex2r', 'r')
 lexer = lex.lex(reflags=re.UNICODE | re.DOTALL)
-lexer.input(data)
-while True:
-			tok = lexer.token() # читаем следующий токен
-			if not tok: break	# закончились печеньки		
-			log (tok)
+
+for line in file:
+	lexer.input(line)
+	while True:
+				tok = lexer.token() # читаем следующий токен
+				if not tok: break	# закончились печеньки		
+				log (tok)
