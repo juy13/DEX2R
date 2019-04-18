@@ -1,0 +1,7 @@
+PROC MAIN
+BLOCK
+UNDEF X
+{A == B}
+A = A + B
+X = TRUE
+UNBLOCK
