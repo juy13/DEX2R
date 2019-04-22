@@ -5,14 +5,41 @@ import dex2r_lex
 
 tokens = dex2r_lex.tokens
 
-def p_program(p):
-	'''program : program EQ
-			   | EQ'''
-	dex2r_lex.log(p[0])
+#def p_program(p):
+#	'''program : program EQ
+#			   | EQ'''
+#	dex2r_lex.log(p[0])
+	
+def p_logic(p):
+	'''logic : LBRACE ID DEQ ID RBRACE'''
+	p[0] = p[1]
 	
 def p_error(p):
 	pass
-
+	
+#def p_sentgroup(p):
+#	'''sentgroup : start sentencess end'''
+#	p[0] = ('SENTGROUP', p[2])
+#	dex2r_lex.log(p[0])
+#
+#def p_sentencess(p):
+#	'''sentencess : sentencess sentence
+#				  | sentence end'''
+#	if len(p) == 3:
+#		p[0] = p[1]
+#		p[0].append(p[2])
+#	else:
+#		p[0] = [p[1]]
+#		
+#
+#def p_sentence(p):
+#		'''sentence : ends'''
+#		p[0] = p[1]
+#		
+#def p_expr(p):
+#	'''expr : end'''
+#	p[0] = p[1]
+	
 parser = yacc.yacc()	
 	
 def parse(data, debug=0):
@@ -36,7 +63,7 @@ if __name__ == '__main__':
 				
 	lexer = lex.lex(module=dex2r_lex)
 	#dex2r_lex.log()
-	data = open('simple_test.dex2r').read()
+	data = open('try1.dex2r').read()
 	lexx(lexer, data)
 	#dex2r_lex.log()
 	prog = parse(data, 1)

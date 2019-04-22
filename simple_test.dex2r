@@ -2,6 +2,8 @@ PROC MAIN
 BLOCK
 UNDEF X
 {A == B}
-A = A + B
+BLOCK
+	A = A + B
+UNBLOCK
 X = TRUE
 UNBLOCK

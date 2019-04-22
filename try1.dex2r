@@ -1,0 +1,4 @@
+{A == B}
+BLOCK
+	A = A + B
+UNBLOCK
