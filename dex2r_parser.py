@@ -11,7 +11,7 @@ tokens = dex2r_lex.tokens
 #	dex2r_lex.log(p[0])
 	
 def p_logic(p):
-	'''logic : LBRACE ID DEQ ID RBRACE'''
+	'''logic : LBRACE ID DEQ ID RBRACE sentence'''
 	p[0] = p[1]
 	
 def p_error(p):
@@ -30,15 +30,15 @@ def p_error(p):
 #		p[0].append(p[2])
 #	else:
 #		p[0] = [p[1]]
-#		
+#		 start ID EQ ID PLUS ID end
 #
-#def p_sentence(p):
-#		'''sentence : ends'''
-#		p[0] = p[1]
-#		
-#def p_expr(p):
-#	'''expr : end'''
-#	p[0] = p[1]
+def p_sentence(p):
+		'''sentence : start expr end'''
+		p[0] = p[1]
+		
+def p_expr(p):
+	'''expr : ID EQ ID PLUS ID '''
+	p[0] = p[1]
 	
 parser = yacc.yacc()	
 	

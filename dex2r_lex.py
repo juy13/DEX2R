@@ -48,7 +48,7 @@ reserved = {
 	
 tokens = ['ID', 'QUOTE', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE', 
 		'EQ', 'PLUS', 'MINUS', 'TIMES', 'POWER', 'DIVIDE', 'LT',
-		'GT', 'QM', 'EX', 'AND', 'DEQ'] + list(reserved.values())
+		'GT', 'QM', 'EX', 'AND', 'DEQ', 'NUMBER'] + list(reserved.values())
 
 t_QUOTE = '\"'
 t_LBRACKET = r'\['
@@ -82,6 +82,12 @@ def t_newline(t):
 def t_error(t):
 	print("Illegal character '%s' at line '%s'" % (t.value[0], t.lexer.lineno))	 
 
+def t_NUMBER(self,t):
+	r'\d+'
+	self.num_count += 1
+	t.value = int(t.value)    
+	return t	
+	
 t_ignore = ' \r\t\f'
 	
 #data = "VOICE ddd \n RECORD X"
