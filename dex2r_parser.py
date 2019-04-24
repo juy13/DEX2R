@@ -5,39 +5,52 @@ import dex2r_lex
 
 tokens = dex2r_lex.tokens
 
-#def p_program(p):
-#	'''program : program EQ
-#			   | EQ'''
-#	dex2r_lex.log(p[0])
+def p_program(p):
+	'''program : def ID LBRACKET list sentgroup'''
 	
-def p_logic(p):
-	'''logic : LBRACE ID DEQ ID RBRACE sentence'''
-	p[0] = p[1]
+def p_list(p):
+	'''list : type ID AND COMMA list
+			| type ID COMMA list
+			| type ID AND RBRACKET
+			| type ID RBRACKET
+			| RBRACKET'''
+	
+def p_type(p):
+	'''type : bool
+			| var
+			| int
+			| string
+			| struct'''
+
+def p_sentgroup(p):
+	'''sentgroup : start sentencess'''
+	p[0] = ('SENTGROUP', p[2])
+	dex2r_lex.log(p[0])		
 	
 def p_error(p):
 	pass
+
+def p_sentencess(p):
+	'''sentencess : sentencess sentence
+				  | sentence end'''
 	
-#def p_sentgroup(p):
-#	'''sentgroup : start sentencess end'''
-#	p[0] = ('SENTGROUP', p[2])
-#	dex2r_lex.log(p[0])
-#
-#def p_sentencess(p):
-#	'''sentencess : sentencess sentence
-#				  | sentence end'''
-#	if len(p) == 3:
-#		p[0] = p[1]
-#		p[0].append(p[2])
-#	else:
-#		p[0] = [p[1]]
-#		 start ID EQ ID PLUS ID end
-#
 def p_sentence(p):
-		'''sentence : start expr end'''
+		'''sentence : expression
+					| logic'''
 		p[0] = p[1]
+	
+def p_logic(p):
+	'''logic : LBRACE ID DEQ ID RBRACE sentgroup'''
+	p[0] = p[1]
 		
 def p_expr(p):
-	'''expr : ID EQ ID PLUS ID '''
+	'''expression : expression PLUS expression
+					| expression MINUS expression
+					| expression TIMES expression
+					| expression DIVIDE expression
+					| ID EQ expression
+					| ID expression
+					| ID'''
 	p[0] = p[1]
 	
 parser = yacc.yacc()	

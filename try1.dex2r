@@ -1,4 +1,7 @@
-{A == B}
+PROC MAIN []
 BLOCK
-	A = A + B
+	{A == B}
+	BLOCK
+		A = A + B
+	UNBLOCK
 UNBLOCK

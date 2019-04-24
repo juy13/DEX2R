@@ -21,7 +21,7 @@ reserved = {
 	 'UNDEF' 		: 'var',
 	 'NUMERIC' 		: 'int',
 	 'STRING' 		: 'string',
-	 'RECORD' 		: 'stuct',
+	 'RECORD' 		: 'struct',
 	 
 	 'CONVERSION' 	: 'convert',
 	 'TO' 			: 'to',
@@ -48,7 +48,7 @@ reserved = {
 	
 tokens = ['ID', 'QUOTE', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE', 
 		'EQ', 'PLUS', 'MINUS', 'TIMES', 'POWER', 'DIVIDE', 'LT',
-		'GT', 'QM', 'EX', 'AND', 'DEQ', 'NUMBER'] + list(reserved.values())
+		'GT', 'QM', 'EX', 'AND', 'DEQ', 'NUMBER', 'COMMA'] + list(reserved.values())
 
 t_QUOTE = '\"'
 t_LBRACKET = r'\['
@@ -67,6 +67,7 @@ t_GT = r'>'
 t_QM = r'\?'
 t_EX = r'\!'
 t_AND = r'\&'
+t_COMMA = r'\,'
 #t_STRING = r'\".*?\"'
 
 def t_ID(t):
@@ -82,9 +83,8 @@ def t_newline(t):
 def t_error(t):
 	print("Illegal character '%s' at line '%s'" % (t.value[0], t.lexer.lineno))	 
 
-def t_NUMBER(self,t):
+def t_NUMBER(t):
 	r'\d+'
-	self.num_count += 1
 	t.value = int(t.value)    
 	return t	
 	
