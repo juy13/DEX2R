@@ -1,0 +1,364 @@
+PROC MOVE[NUMERIC ARROW]
+BLOCK
+	LOGIC FL2
+	FL2 = TRUE
+	{FL2 *. ARROW ? 1}
+		BLOCK
+			FL2 = FALSE
+			MOVERIGHT[1]
+		UNBLOCK
+	{FL2 *. ARROW ? 2}
+		BLOCK
+			FL2 = FALSE
+			MOVELEFT[1]
+		UNBLOCK
+	{FL2 *. ARROW ? 3}
+		BLOCK
+			FL2 = FALSE
+			MOVEDOWN[1]
+		UNBLOCK
+	{FL2 *. ARROW ? 4}
+		BLOCK
+			FL2 = FALSE
+			MOVEUP[1]
+		UNBLOCK
+UNBLOCK
+
+
+BLOCK
+	ESCAPE[]
+UNBLOCK
+
+
+PROC ESCAPE[]
+BLOCK
+	NUMERIC RES
+	NUMERIC ARROW
+	ARROW = 1
+	LOGIC FLAG
+	FLAG = TRUE
+	LOGIC FOREVER
+	FOREVER = TRUE
+	RES = UNDEF
+	{FOREVER ? TRUE}
+	BLOCK
+		{FLAG *. ARROW ? 1}
+			BLOCK
+				FLAG = FALSE
+				PINGRIGHT[RES]
+				{RES ! 0}
+					BLOCK
+						RES = UNDEF
+						MOVE[ARROW]
+						PING[ARROW, RES]
+					UNBLOCK
+				TURN[ARROW, 1]
+				LOGIC FL2
+				MOVE[ARROW]
+				RES = FALSE
+				PING[ARROW, RES]
+				FL2 = TRUE
+				{FL2 .* RES ? UNDEF}
+					BLOCK
+						RES = UNDEF
+						PING[ARROW, RES]
+						FL2 = FALSE
+						{FL2 +. RES ? 0}
+							BLOCK
+								NUMERIC ARB
+								ARB = ARROW
+								TURN[ARB, 3]
+								MOVE[ARB]
+								TURN[ARROW, 2]
+								MOVE[ARROW]
+								RES = UNDEF
+								PING[ARROW, RES]
+								FL2 = FALSE
+								{FL2 +. RES ? 0}
+								BLOCK
+									ARB = ARROW
+									TURN[ARB, 3]
+									FL2 = TRUE
+									MOVE[ARB]
+									TURN[ARROW, 2]
+								UNBLOCK
+								FL2 = TRUE
+							UNBLOCK
+						FL2 = FALSE
+					UNBLOCK
+				{FL2 *. RES > 0}
+					BLOCK
+						FL2 = FALSE
+						FOREVER = FALSE
+					UNBLOCK
+			UNBLOCK
+		{FLAG *. ARROW ? 2}
+			BLOCK
+				FLAG = FALSE
+				PINGLEFT[RES]
+				{RES ! 0}
+					BLOCK
+						RES = UNDEF
+						MOVE[ARROW]
+						PING[ARROW, RES]
+					UNBLOCK
+				TURN[ARROW, 1]
+				LOGIC FL2
+				MOVE[ARROW]
+				RES = FALSE
+				PING[ARROW, RES]
+				FL2 = TRUE
+				{FL2 .* RES ? UNDEF}
+					BLOCK
+						RES = UNDEF
+						PING[ARROW, RES]
+						FL2 = FALSE
+						{FL2 +. RES ? 0}
+							BLOCK
+								NUMERIC ARB
+								ARB = ARROW
+								TURN[ARB, 3]
+								RES = RES + 1
+								MOVE[ARB]
+								TURN[ARROW, 2]
+								MOVE[ARROW]
+								RES = UNDEF
+								PING[ARROW, RES]
+								FL2 = FALSE
+								{FL2 +. RES ? 0}
+								BLOCK
+									ARB = ARROW
+									TURN[ARB, 3]
+									FL2 = TRUE
+									RES = RES + 1
+									MOVE[ARB]
+									TURN[ARROW, 2]
+								UNBLOCK
+								FL2 = TRUE
+							UNBLOCK
+						FL2 = FALSE
+					UNBLOCK
+				{FL2 *. RES > 0}
+					BLOCK
+						FL2 = FALSE
+						FOREVER = FALSE
+					UNBLOCK
+			UNBLOCK
+		{FLAG *. ARROW ? 3}
+			BLOCK
+				FLAG = FALSE
+				PINGDOWN[RES]
+				{RES ! 0}
+					BLOCK
+						RES = UNDEF
+						MOVE[ARROW]
+						PING[ARROW, RES]
+					UNBLOCK
+				TURN[ARROW, 1]
+				LOGIC FL2
+				MOVE[ARROW]
+				RES = FALSE
+				PING[ARROW, RES]
+				FL2 = TRUE
+				{FL2 .* RES ? UNDEF}
+					BLOCK
+						RES = UNDEF
+						PING[ARROW, RES]
+						FL2 = FALSE
+						{FL2 +. RES ? 0}
+							BLOCK
+								NUMERIC ARB
+								ARB = ARROW
+								TURN[ARB, 3]
+								RES = RES + 1
+								MOVE[ARB]
+								TURN[ARROW, 2]
+								MOVE[ARROW]
+								RES = UNDEF
+								PING[ARROW, RES]
+								FL2 = FALSE
+								{FL2 +. RES ? 0}
+								BLOCK
+									ARB = ARROW
+									TURN[ARB, 3]
+									FL2 = TRUE
+									RES = RES + 1
+									MOVE[ARB]
+									TURN[ARROW, 2]
+								UNBLOCK
+								FL2 = TRUE
+							UNBLOCK
+							FL2 = FALSE
+					UNBLOCK
+				{FL2 *. RES > 0}
+					BLOCK
+						FL2 = FALSE
+						FOREVER = FALSE
+					UNBLOCK
+			UNBLOCK
+		{FLAG *. ARROW ? 4}
+			BLOCK
+				FLAG = FALSE
+				PINGUP[RES]
+				{RES ! 0}
+					BLOCK
+						RES = UNDEF
+						MOVE[ARROW]
+						PING[ARROW, RES]
+					UNBLOCK
+				TURN[ARROW, 1]
+				LOGIC FL2
+				MOVE[ARROW]
+				RES = FALSE
+				PING[ARROW, RES]
+				FL2 = TRUE
+				{FL2 .* RES ? UNDEF}
+					BLOCK
+						RES = UNDEF
+						PING[ARROW, RES]
+						FL2 = FALSE
+						{FL2 +. RES ? 0}
+							BLOCK
+								NUMERIC ARB
+								ARB = ARROW
+								TURN[ARB, 3]
+								RES = RES + 1
+								MOVE[ARB]
+								TURN[ARROW, 2]
+								MOVE[ARROW]
+								RES = UNDEF
+								PING[ARROW, RES]
+								FL2 = FALSE
+								{FL2 +. RES ? 0}
+									BLOCK
+										ARB = ARROW
+										TURN[ARB, 3]
+										FL2 = TRUE
+										RES = RES + 1
+										MOVE[ARB]
+										TURN[ARROW, 2]
+									UNBLOCK
+								FL2 = TRUE
+							UNBLOCK
+							FL2 = TRUE
+					UNBLOCK
+				{FL2 *. RES > 0}
+					BLOCK
+						FL2 = FALSE
+						FOREVER = FALSE
+					UNBLOCK
+			UNBLOCK
+	UNBLOCK
+UNBLOCK
+
+
+PROC PING[NUMERIC ARROW, NUMERIC RES &]
+BLOCK
+	LOGIC FL2
+	FL2 = TRUE
+	{FL2 *. ARROW ? 1}
+		BLOCK
+			FL2 = FALSE
+			PINGRIGHT[RES]
+		UNBLOCK
+	{FL2 *. ARROW ? 2}
+		BLOCK
+			FL2 = FALSE
+			PINGLEFT[RES]
+		UNBLOCK
+	{FL2 *. ARROW ? 3}
+		BLOCK
+			FL2 = FALSE
+			PINGDOWN[RES]
+		UNBLOCK
+	{FL2 *. ARROW ? 4}
+		BLOCK
+			FL2 = FALSE
+			PINGUP[RES]
+		UNBLOCK
+UNBLOCK
+
+
+PROC TURN[NUMERIC ARROW &, NUMERIC DIST]
+BLOCK
+	LOGIC FL
+	FL = TRUE
+	{FL *. DIST ? 1}
+	BLOCK
+		FL = FALSE
+		LOGIC FL2
+		FL2 = TRUE
+		{FL2 *. ARROW ? 1}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 3
+		UNBLOCK
+		{FL2 *. ARROW ? 3}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 2
+		UNBLOCK
+		{FL2 *. ARROW ? 2}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 4
+		UNBLOCK
+		{FL2 *. ARROW ? 4}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 1
+		UNBLOCK
+	UNBLOCK
+	{FL *. DIST ? 2}
+	BLOCK
+		FL = FALSE
+		LOGIC FL2
+		FL2 = TRUE
+		{FL2 *. ARROW ? 1}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 4
+		UNBLOCK
+		{FL2 *. ARROW ? 3}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 1
+		UNBLOCK
+		{FL2 *. ARROW ? 2}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 3
+		UNBLOCK
+		{FL2 *. ARROW ? 4}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 2
+		UNBLOCK
+	UNBLOCK
+	{FL *. DIST ? 3}
+	BLOCK
+		FL = FALSE
+		LOGIC FL2
+		FL2 = TRUE
+		{FL2 *. ARROW ? 1}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 2
+		UNBLOCK
+		{FL2 *. ARROW ? 3}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 4
+		UNBLOCK
+		{FL2 *. ARROW ? 2}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 1
+		UNBLOCK
+		{FL2 *. ARROW ? 4}
+		BLOCK
+			FL2 = FALSE
+			ARROW = 3
+		UNBLOCK
+	UNBLOCK
+UNBLOCK

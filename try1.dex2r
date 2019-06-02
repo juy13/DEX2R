@@ -1,7 +1,18 @@
-PROC MAIN []
 BLOCK
-	{A == B}
+	NUMERIC X
+	NUMERIC Y
+	NUMERIC OT
+	X = 1
+	Y = 4
+	RC[X]
+	Y = 5
+UNBLOCK
+
+PROC RC[NUMERIC Z &]
+BLOCK
+	{Z < 3}
 	BLOCK
-		A = A + B
+		Z = Z + 1
+		RC[Z]
 	UNBLOCK
 UNBLOCK
